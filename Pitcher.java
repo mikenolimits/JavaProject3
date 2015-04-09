@@ -10,6 +10,7 @@ public class Pitcher extends Player {
 
     public Pitcher(String battingAvg,String number, String lastName, String firstName,String era){
         super(battingAvg,number,lastName,firstName,'P');
+        setEra(Float.valueOf(era));
     }
 
 

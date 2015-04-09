@@ -13,10 +13,12 @@ public class WordSorter {
 
     protected TextFileInput reader;
 
-
     protected String        location;
     protected LinkedList    players;
 
+    protected ArrayList<Player> unorganizedList;
+
+    public boolean unorganized = true;
 
 
     /*
@@ -29,6 +31,7 @@ public class WordSorter {
 
         this.location = location;
         this.players  = new LinkedList();
+        this.unorganizedList = new ArrayList<Player>();
 
         setWords();
     }
@@ -47,34 +50,44 @@ public class WordSorter {
         String current;
 
 
-        while((current = reader.readLine()) != null) {
-
-            Map<String,String> currentPlayer = new HashMap<String,String>();
+        while( (current = reader.readLine()) != null) {
 
             String [] allWordsInLine = current.split(",");
 
-            String playerType = allWordsInLine[0];
+                insertToLinkedList(allWordsInLine);
 
-
-            currentPlayer.put("playerType",playerType);
-            currentPlayer.put("number",allWordsInLine[1]);
-            currentPlayer.put("lastName",allWordsInLine[2]);
-            currentPlayer.put("firstName",allWordsInLine[3]);
-            currentPlayer.put("battingAvg",allWordsInLine[4]);
-
-
-            switch (playerType.charAt(0)){
-                case 'F':
-                    players.insert(currentPlayer);
-                    break;
-                case 'P':
-                    currentPlayer.put("era",allWordsInLine[5]);
-                    players.insert(currentPlayer);
-                    break;
-            }
+                Player currentPlayer = new Player(allWordsInLine[0].charAt(0),allWordsInLine[4],allWordsInLine[1],allWordsInLine[3],allWordsInLine[2]);
+                unorganizedList.add(currentPlayer);
 
         }
 
+    }
+
+    private void insertToLinkedList(String[] allWordsInLine) {
+        Map<String,String> currentPlayer = new HashMap<String,String>();
+
+
+        String playerType = allWordsInLine[0];
+
+
+        currentPlayer.put("playerType",playerType);
+        currentPlayer.put("number",allWordsInLine[1]);
+        currentPlayer.put("lastName",allWordsInLine[2]);
+        currentPlayer.put("firstName",allWordsInLine[3]);
+        currentPlayer.put("battingAvg",allWordsInLine[4]);
+
+
+        switch (playerType.charAt(0)){
+            case 'F':
+                players.insert(currentPlayer);
+                break;
+            case 'P':
+                currentPlayer.put("era",allWordsInLine[5]);
+                players.insert(currentPlayer);
+                break;
+            default:
+                throw new IllegalArgumentException("The Type Doesnt Exist...");
+        }
     }
 
     public LinkedList getWords(){
@@ -86,44 +99,6 @@ public class WordSorter {
     public void setLocation(String location) {
 
         this.location = location;
-    }
-
-    /*
-        This method systematically creates a shadow copy of the current list
-        And follows by using compareTo sort the copy, until it returns false for all
-        iterations
-
-         Interesting enough this method really didn't need to be changed at all.
-        Simply giving Player his own CompareTo implementation was good enough to get it
-        running the way it should. That was easy :)
-
-     */
-
-    public void alphabetize(){
-
-        /*
-        List<Player> copy = new ArrayList<Player>();
-
-        for (int i = 0; i < players.size() ; i++) {
-            copy.add(i,players.get(i));
-        }
-
-        for (int i = 1; i < copy.size(); i++) {
-
-            Player current  = copy.get(i);
-            Player previous = copy.get(i - 1);
-
-            if (current.compareTo(previous) < 1) {
-
-                copy.set(i - 1,current);
-                copy.set(i, previous);
-                i = 0;
-                continue;
-            }
-        }
-
-        return copy;
-        */
     }
 
 }

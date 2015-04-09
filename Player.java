@@ -38,11 +38,11 @@ public class Player {
     }
 
 
-    public Player(float battingAvg,int number, String lastName, String firstName,char playerType){
+    public Player(char playerType,String battingAvg,String number, String lastName, String firstName){
 
         setPlayerType(playerType);
-        setBattingAvg(battingAvg);
-        setNumber(number);
+        setBattingAvg(Float.parseFloat(battingAvg));
+        setNumber(Integer.valueOf(number));
         setLastName(lastName);
         setFirstName(firstName);
     }

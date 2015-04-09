@@ -50,20 +50,22 @@ public class GUI  extends JFrame{
 
 
         switch (index){
-            case 1:
+            case 2:
+                for (int i = 0; i < column.fielders.size(); i++) {
 
-                for (int i = 0; i < column.all.size(); i++) {
-
-                    Player player        = column.all.get(i);
+                    Fielder player        = column.fielders.get(i);
                     String currentLine   =  player.number + "," + player.firstName + "," + player.lastName + "," + player.battingAvg + "\r\n";
                     System.out.println(currentLine);
-                    text1.append(currentLine);
+                    text2.append(currentLine);
                 }
-
-                break;
-            case 2:
                 break;
             case 3:
+                for (int i = 0; i < column.pitchers.size(); i++) {
+                    Pitcher player        = column.pitchers.get(i);
+                    String currentLine   =  player.number + "," + player.firstName + "," + player.lastName + "," + player.battingAvg + "," + player.era + "\r\n";
+                    System.out.println(currentLine);
+                    text3.append(currentLine);
+                }
                 break;
             default:
                 break;

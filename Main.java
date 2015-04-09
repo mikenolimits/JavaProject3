@@ -18,10 +18,18 @@ public class Main {
 
         list     =  Reader.getWords();
         list.sort();
-        //List<Player> rightColumn =  Reader.alphabetize();
 
-        WordFrame.organizeColumn(list, 1);
-        //WordFrame.organizeColumn(rightColumn,WordFrame.text2);
+        for (int i = 0; i < Reader.unorganizedList.size(); i++) {
+
+            Player player        =  Reader.unorganizedList.get(i);
+            String currentLine   =  player.number + "," + player.firstName + "," + player.lastName + "," + player.battingAvg + "\r\n";
+            WordFrame.text1.append(currentLine);
+        }
+        Reader.unorganized = false;
+
+
+        WordFrame.organizeColumn(list,2);
+        WordFrame.organizeColumn(list,3);
     }
 
 }

@@ -11,6 +11,10 @@ import java.util.Map;
 public class Node
 {
     protected Node link;
+    public String firstName;
+    public String lastName;
+    public String number;
+    public String era;
 
     public Map<String,String> container;
 
@@ -25,6 +29,7 @@ public class Node
         this.container = values;
         link = n;
     }
+
     /*  Function to set link to next Node  */
     public void setLink(Node n)
     {
@@ -35,6 +40,7 @@ public class Node
     {
         return link;
     }
+
     /*  Function to get data from current Node  */
     public Map<String,String> getData()
     {
