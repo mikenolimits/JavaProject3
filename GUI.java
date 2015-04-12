@@ -1,9 +1,7 @@
-package com.company;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.List;
-
+import java.util.ArrayList;
 
 public class GUI  extends JFrame{
 
@@ -40,40 +38,46 @@ public class GUI  extends JFrame{
 
     }
 
-     /*
-      Just a tiny helper method to avoid 2 for loops. It takes the GUIs
-      TextArea and appends the array of strings from the particular column into
-      the GUI
+    /*
+       Helper method to append text to the GUI from a LinkedList
+       Instead of a regular one.
      */
 
     public void organizeColumn(LinkedList column, int index) {
-
 
         switch (index){
             case 2:
                 for (int i = 0; i < column.fielders.size(); i++) {
 
-                    Fielder player        = column.fielders.get(i);
-                    String currentLine   =  player.number + "," + player.firstName + "," + player.lastName + "," + player.battingAvg + "\r\n";
-                    System.out.println(currentLine);
+                    Fielder player        =  column.fielders.get(i);
+                    String currentLine    =  player.toString();
                     text2.append(currentLine);
                 }
                 break;
             case 3:
                 for (int i = 0; i < column.pitchers.size(); i++) {
-                    Pitcher player        = column.pitchers.get(i);
-                    String currentLine   =  player.number + "," + player.firstName + "," + player.lastName + "," + player.battingAvg + "," + player.era + "\r\n";
-                    System.out.println(currentLine);
+                    Pitcher player        =  column.pitchers.get(i);
+                    String currentLine    =  player.toString();
                     text3.append(currentLine);
                 }
                 break;
             default:
-                break;
+                throw new IllegalArgumentException("Index out of bounds.");
         }
+    }
 
+      /*
+      Just a tiny helper method to avoid 2 for loops. It takes the GUIs
+      TextArea and appends the array of strings from the particular column into
+      the GUI
+     */
 
-
-
+    public void organizeColumn(ArrayList<Player> column, TextArea text){
+        for (int i = 0; i < column.size(); i++) {
+            Player player        =  column.get(i);
+            String currentLine   =  player.toString();
+            text.append(currentLine);
+        }
     }
 
 }

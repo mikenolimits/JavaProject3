@@ -1,7 +1,4 @@
-package com.company;
 
-import java.util.Dictionary;
-import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -10,41 +7,51 @@ import java.util.Map;
 /*  Class Node  */
 public class Node
 {
-    protected Node link;
-    public String firstName;
-    public String lastName;
-    public String number;
-    public String era;
+    protected Node nextLink;
 
     public Map<String,String> container;
 
-    /*  Constructor  */
-    public Node()
-    {
-        link = null;
-    }
-    /*  Constructor  */
     public Node(Map<String,String> values,Node n)
     {
         this.container = values;
-        link = n;
+        nextLink = n;
+    }
+
+    /*  Boolean check for next node */
+    public boolean hasNext(){
+        return nextLink != null;
+    }
+
+    /* Getter for NextNode  */
+    public Node getNext(){
+        return nextLink;
     }
 
     /*  Function to set link to next Node  */
-    public void setLink(Node n)
+    public void setNext(Node n)
     {
-        link = n;
-    }
-    /*  Function to get link to next node  */
-    public Node getLink()
-    {
-        return link;
+
+        nextLink = n;
     }
 
     /*  Function to get data from current Node  */
-    public Map<String,String> getData()
+    public Map<String,String> getContainer()
     {
+
         return this.container;
+    }
+
+    /*
+       Since the container is a Key Value Pair,
+       We're going to attempt to check by the Int
+       Value of whatever key we're provided.
+     */
+    public int compareTo(String key,Node otherNode){
+
+        Integer thisVal  = Integer.valueOf(this.container.get(key));
+        Integer otherVal = Integer.valueOf(otherNode.getContainer().get(key));
+
+        return thisVal.compareTo(otherVal);
     }
 
 }

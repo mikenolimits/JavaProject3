@@ -1,4 +1,3 @@
-package com.company;
 
 /**
  * Created by michaelkantor on 3/16/15.
@@ -56,6 +55,13 @@ public class Player {
     public int compareTo(Player otherPlayer){
 
         return lastName.compareTo(otherPlayer.lastName);
+    }
+
+    /*
+      Tiny helper method to combine all the attributes into one line.
+     */
+    public String toString(){
+        return this.getNumber() + "," + this.getFirstName() + "," + this.getLastName() + "," + this.getBattingAvg() + "\r\n";
     }
 
 

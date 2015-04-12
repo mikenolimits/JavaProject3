@@ -1,14 +1,12 @@
-package com.company;
 
-import com.sun.org.apache.xerces.internal.xs.StringList;
 
-import java.util.List;
 import java.util.*;
 import java.util.ArrayList;
 
 /**
  * Created by michaelkantor on 3/2/15.
  */
+
 public class WordSorter {
 
     protected TextFileInput reader;
@@ -18,27 +16,25 @@ public class WordSorter {
 
     protected ArrayList<Player> unorganizedList;
 
-    public boolean unorganized = true;
-
+    public boolean unorganized;
 
     /*
      Basic Constructor For WordSorting Object. It basically
      fills up our Words List from the TextFile.
-
      */
-
     public WordSorter(String location){
 
-        this.location = location;
-        this.players  = new LinkedList();
+        this.location        = location;
+        this.players         = new LinkedList();
         this.unorganizedList = new ArrayList<Player>();
+        this.unorganized     = true;
 
         setWords();
     }
 
-
     /*
-       Setter for words that iterates through the text file specified in the constructor
+       Setter for words that iterates through
+       the text file specified in the constructor
      */
 
     public void setWords(){
@@ -54,21 +50,35 @@ public class WordSorter {
 
             String [] allWordsInLine = current.split(",");
 
-                insertToLinkedList(allWordsInLine);
+                append(allWordsInLine);
 
-                Player currentPlayer = new Player(allWordsInLine[0].charAt(0),allWordsInLine[4],allWordsInLine[1],allWordsInLine[3],allWordsInLine[2]);
+                Player currentPlayer = new Player(
+                        allWordsInLine[0].charAt(0),
+                        allWordsInLine[4],
+                        allWordsInLine[1],
+                        allWordsInLine[3],
+                        allWordsInLine[2]
+                );
+
+                //Our First Column needs to be unorganized therefore even as we're looping
+                //We need to stick all the players in one big pile.
                 unorganizedList.add(currentPlayer);
-
         }
 
     }
 
-    private void insertToLinkedList(String[] allWordsInLine) {
+    /**
+     *
+     * This method is responsible for add a new KV pair
+     * into the linked List. In the case of the pitcher,
+     * the dictionary gets
+     * @param allWordsInLine
+     */
+    private void append(String[] allWordsInLine) {
+
         Map<String,String> currentPlayer = new HashMap<String,String>();
 
-
         String playerType = allWordsInLine[0];
-
 
         currentPlayer.put("playerType",playerType);
         currentPlayer.put("number",allWordsInLine[1]);
@@ -79,14 +89,14 @@ public class WordSorter {
 
         switch (playerType.charAt(0)){
             case 'F':
-                players.insert(currentPlayer);
+                players.add(currentPlayer);
                 break;
             case 'P':
                 currentPlayer.put("era",allWordsInLine[5]);
-                players.insert(currentPlayer);
+                players.add(currentPlayer);
                 break;
             default:
-                throw new IllegalArgumentException("The Type Doesnt Exist...");
+                throw new IllegalArgumentException("The Type Doesn't Exist...");
         }
     }
 
@@ -95,10 +105,5 @@ public class WordSorter {
         return players;
     }
 
-
-    public void setLocation(String location) {
-
-        this.location = location;
-    }
 
 }

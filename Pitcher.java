@@ -1,4 +1,3 @@
-package com.company;
 
 /**
  * Created by michaelkantor on 4/9/15.
@@ -13,6 +12,12 @@ public class Pitcher extends Player {
         setEra(Float.valueOf(era));
     }
 
+    /*
+      Unlike the player we have one extra field. Namely the ERA.
+     */
+    public String toString(){
+        return this.getNumber() + "," + this.getFirstName() + "," + this.getLastName() + "," + this.getBattingAvg() + "," + this.getEra() + "\r\n";
+    }
 
     public float getEra() {
         return era;
